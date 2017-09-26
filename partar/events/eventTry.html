@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>event test</title>
+</head>
+<body>
+	<div id="app">
+		<input placeholder="Input Text" v-model="input">
+		<button v-on:click='insert'>Submit</button>
+		<p>textin er: {{text}}</p>
+	</div>
+
+	<script src="https://unpkg.com/vue"></script>
+	<script type="text/javascript">
+		var app = new Vue ({
+			el: "#app",
+			data: {
+				input: '',
+				text: ''
+			},
+			methods: {
+				insert: function() {
+					this.text = this.input
+					this.input = ''
+				}
+			}
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<div id="app">
+		<p>sniðmátsaðferrð</p>
+		<p v-for='land in lond'>{{ land.name }} ({{land.population}})</p>
+
+		<p>eiginleikaaðferð</p>
+		<ul v-for='land in lond'>
+			<span v-text='land.name'></span>
+			<span v-text='land.population'></span>
+		</ul>
+	</div>
+
+	<script src="https://unpkg.com/vue"></script>
+	<script type="text/javascript">
+		var app = new Vue ({
+			el: "#app",
+			data: {
+				lond: [
+					{name:'pol', population: 1},
+					{name:'Germany', population: 23534},
+					{name:'France', population: 123445},
+					{name:'Soviet Union', population: 12643124}
+				]
+			}
+		});
+	</script>
+</body>
+</html>

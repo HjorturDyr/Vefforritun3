@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="h1style.css">
+</head>
+<body>
+	<div id="app">
+		<input class="input is-info" v-model="link" placeholder="Search" style="border-top">
+		<div id="app">
+			<a v-if="link" v-bind:style="{ color: litur}" v-bind:href="google + link" style="font-size: 25px;">Linkurinn er her</a>
+			<a v-else="link" v-bind:style="{ color: litur2}" v-bind:href="google + link" style="font-size: 25px;">Linkurinn er her</a>
+		</div>
+	</div>
+	<script src="https://unpkg.com/vue"></script>
+	<script type="text/javascript">
+		var app = new Vue({
+			el: "#app",
+			data: {
+				link: "",
+				google: "https://www.google.is/search?q=",
+				check: false,
+				litur: '#FF6347',
+				litur2: 'black'
+				
+			}
+		});
+	</script>
+</body>
+</html>

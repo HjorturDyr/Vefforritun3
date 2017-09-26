@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div id="app">
+		<ul>
+			<a @click.prevent='handleClick(anchor)' v-for='item in anchors' :href="item" v-text='item'></a>
+		</ul>
+		<p>linkurinn er: {{activeLink}}</p>
+	</div>
+
+	<script src="https://unpkg.com/vue"></script>
+	<script type="text/javascript">
+		var app = new Vue ({
+			el: "#app",
+			data: {
+				anchors: [
+					'https://www.google.co.uk',
+					'http://www.visir.is/',
+					'http://fotbolti.net/',
+					'https://facebook.com'
+				],
+				activeLink: ''
+			},
+			methods: {
+				handleClick: function(number) {
+					console.log(number)
+				}
+			}
+		});
+	</script>
+</body>
+</html>

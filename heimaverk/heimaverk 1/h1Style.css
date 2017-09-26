@@ -1,0 +1,14 @@
+input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 2px solid #D3D3D3 ;
+}
+
+input:focus {
+	border-color: #FF6347;
+}
+
+a {
+	text-decoration: none;
+}

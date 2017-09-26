@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>event</title>
+</head>
+<body>
+	<div id="app">
+		<p>{{counter}}</p>
+
+		<button @click='increase'>
+			Increase
+		</button>
+
+		<button @click='decrease'>
+		Decrease
+		</button>
+	</div>
+	<script src="https://unpkg.com/vue"></script>
+	<script type="text/javascript">
+		var app = new Vue ({
+			el: "#app",
+			data: {
+				counter: 0,
+			},
+			methods:{
+				increase: function() {
+					if (this.counter < 10) {
+						this.counter ++;
+					}
+				},
+
+				decrease: function() {
+					if (this.counter > -10) {
+						this.counter --;
+					}
+				}
+			}
+		});
+	</script>
+</body>
+</html>

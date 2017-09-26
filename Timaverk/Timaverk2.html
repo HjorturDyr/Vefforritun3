@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<div id="app">
+		<p v-for='l in lönd'>{{ l }}</p>
+	</div>
+	<div id="app">
+		<ul v-for='l in lönd'>
+		<span v-text='l'></span>
+		</ul>
+	</div>
+
+	<script src="https://unpkg.com/vue"></script>
+	<script type="text/javascript">
+		var app = new Vue ({
+			el: "#app",
+			data: {
+				lönd: [
+					'pol',
+					'Germany',
+					'France',
+					'Soviet Union'
+				]
+			}
+		});
+	</script>
+</body>
+</html>
