@@ -6,115 +6,141 @@
 	<style type="text/css">
 		ul,
 		li {
-			margin: 0;
-			padding: 0;
-			border: 0;
+		  margin: 0;
+		  padding: 0;
+		  border: 0;
 		}
 
+
+		/* Global Styles */
+
 		body {
-			line-height: 1;
-			font-family: 'Lato', sans-serif;
-			background-color: #EFF1F2;
+		  line-height: 1;
+		  font-family: "Lato", sans-serif;
+		  background-color: #EFF1F2;
 		}
 
 		.container {
-			width: 70%;
-			margin: 1em auto 3em;
-			border: 1px solid #efefef;
+		  width: 70%;
+		  margin: 1em auto 3em;
+		  border: 1px solid #efefef;
 		}
 
 		.panel,
 		li {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			list-style-type: none;
-			padding: 10px;
-			border-bottom: 1px solid #efefef;
-			background-color: #E7E8EB; 
+		  /* Use flexbox */
+		  display: flex;
+		  /* Center everything inside .panel and li vertically */
+		  align-items: center;
+		  /* Distribute space evenly between the contents*/
+		  justify-content: space-between;
+		  list-style-type: none;
+		  padding: 10px;
+		  border-bottom: 1px solid #efefef;
+		  background-color: #E7E8EB;
 		}
 
 		.text-input {
-			border: 1px solid #dedede;
-			padding-left: 10px;
-			width: 70%;
-			height: 35px;
-			color: #555;
+		  border: 1px solid #dedede;
+		  padding-left: 10px;
+		  width: 70%;
+		  height: 35px;
+		  color: #555;
 		}
 
 		button {
-			color: #555;
-			background-color: #FFFFFF;
-			border: 1px solid #bbb;
-			outline: 0;
-			width: 100px;
-			height: 38px;
-			cursor: pointer;
-			font-size: 12px;
+		  color: #555;
+		  background-color: #FFFFFF;
+		  border: 1px solid #bbb;
+		  outline: 0;
+		  width: 100px;
+		  height: 38px;
+		  cursor: pointer;
+		  font-size: 12px;
 		}
 
+
+		/* Task  area */
+
 		.list li {
-			background-color: #3465A4;
+		  background-color: #3465A4;
 		}
 
 		.list li .delete {
-			background-color: transparent;
-			border: 1px solid #3465A4;
-			color: #ddd;
-			visibility: hidden;
-			font-size: 20px;
-			font-weight: bold;
+		  background-color: transparent;
+		  border: 1px solid #3465A4;
+		  color: #ddd;
+		  /* Hide the delete button by default*/
+		  visibility: hidden;
+		  font-size: 20px;
+		  font-weight: bold;
 		}
 
 		.list li:hover > .delete {
-			visibility: visible;
+		  /* Show the delete button when hovering over each list item */
+		  visibility: visible;
 		}
 
 		.list label {
-			padding-left: 10px;
-			display: inline-block;
-			width: 70%;
-			font-style: 18px;
-			line-height: 24px;
-			color: #fcfcfc;
-			z-index: 2;
-			overflow: hidden;
+		  padding-right: 10px;
+		  display: inline-block;
+		  width: 70%;
+		  font-size: 18px;
+		  line-height: 24px;
+		  color: #fcfcfc;
+		  z-index: 2;
+		  overflow: hidden;
 		}
 
 		.list li.done label {
-			color: #d9d9d9;
-			text-decoration: line-through;
+		  color: #d9d9d9;
+		  text-decoration: line-through;
 		}
 
+
+		/* Media Queries */
+
 		@media screen and (max-width: 768px) {
-			.container {
-				width: 90%;
-				max-width: 90%;
-			}
-			button {
-				width: 80px;
-			}
+		  .container {
+		    width: 90%;
+		    max-width: 90%;
+		  }
+		  button {
+		    width: 80px;
+		  }
 		}
 	</style>
 
 </head>
 <body>
 
-	<div id="app" class="container">
-		<section class="panel">
-			<input type="checkbox" id="mark-all">
-			<input type="text" placeholder="What do you need to do?" autofocus class="text-input">
-			<button>clear list</button>
-		</section>
 
-		<ul class="list">
-			<li>
-				<input type="checkbox" class="checkbox">
-				<input type="text" class="text-input">
-				<label for="checkbox"></label>
-				<button class="delete">X</button>
-			</li>
-		</ul>
+	<div class="container" id="app">
+
+	  <section class="panel">
+
+	    <input type="checkbox" id="mark-all" v-bind:checked='areALLSelected' v-on:click='selectALL'>
+	    <input type="text" placeholder="What do you need to do?" autofocus class="text-input" v-model="newTask" v-on:keyup.enter="addTask">
+	    <button v-on:click="clearList">Clear List</button>
+
+	  </section>
+
+	  <ul class="list">
+
+	    <li v-for="task in tasklist" v-bind:class="{done: task.checked}">
+
+	      <input type="checkbox" class="checkbox" v-model="task.checked">
+
+	      <label for="checkbox">{{ task.text }}</label>
+
+	      <button class="delete" v-on:click="removeTask(task)">X</button>
+
+	    </li>
+
+	  </ul>
+
+	  <pre>{{ $data }}</pre>
+
 	</div>
 
 	<script src="https://unpkg.com/vue"></script>
@@ -123,8 +149,44 @@
 			el: "#app",
 			data: {
 				newTask: '',
-				tasklist: ''
-			}
+				tasklist: []
+			},
+			methods: {
+				addTask: function() {
+					var task = this.newTask.trim();
+					if (task) {
+						this.tasklist.push({
+							text: task,
+							checked: false
+						});
+
+						this.newTask = "";
+					}
+				},
+
+				removeTask: function(task) {
+					var index = this.tasklist.indexOf(task);
+
+					this.tasklist.splice(index, 1);
+				},
+
+				clearList: function() {
+	  				this.tasklist = [];
+				},
+				selectALL: function(task) {
+					var targetValue = this.areALLSelected ? false : true;
+					for (var i = 0; i < this.tasklist.length; i++) {
+						this.tasklist[i].checked = targetValue;
+					}
+				}
+			},
+			computed: {
+				areALLSelected: function() {
+					return this.tasklist.every(function(task) {
+						return task.checked;
+					}) && this.tasklist.length > 0;
+				},
+			},
 		});
 	</script>
 </body>
