@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
+	<meta charset="utf-8">
+</head>
+<body>
+
+	<div id="app">
+		<modal v-show="isVisible" title="titill">
+			texti
+		</modal>
+	</div>
+
+
+
+	 
+	<script type="text/javascript">
+		Vue.component('modal', {
+			props: ['title'],
+			data: function() {
+				return {
+					isVisible: false
+				};
+			},
+
+			methods: {
+				showmodal: function() {
+					this.isVisible = true;
+				},
+				
+			},	
+			template: `
+				<div>	
+					<div v-show="isVisible" class="modal is-active">
+					  <div class="modal-background"></div>
+					  <div class="modal-content">
+					    <div class="box">
+					    	<h1 class="title is-3">{{ title }}</h1>
+					    	<p><slot></slot></p>
+					    </div>
+					  </div>
+					  <button class="modal-close is-large" aria-label="close"></button>
+					</div>
+					<button class="button is-primary" @click="showmodal">birta modal</button>
+				</div>
+			`
+		});
+
+		var app = new Vue({
+		el: "#app",
+		});
+	</script>
+</body>
+</html>
