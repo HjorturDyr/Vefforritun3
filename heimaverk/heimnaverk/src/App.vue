@@ -2,9 +2,9 @@
   <div id="app" class="center">
     <div v-for="petrol in sortedPetrols" id="p_div" class="hero is-light is-large">
 
-      <h1 class="title is-4" style="padding-top:20px; padding-bottom:30px;">{{petrol.company}} <span style="float:right; color:gray;" class="is-size-6">bensín / {{petrol.bensin95}} kr.</span></h1>
+      <h1 class="title is-4" style="padding-top:20px; padding-bottom:30px;" id="idh1">{{petrol.company}} <span id="idh1" style="float:right;" class="is-size-6">bensín / {{petrol.bensin95}} kr.</span></h1>
       
-      <h3 class="subtitle is-5" style="padding-bottom:20px;">{{petrol.name}}<span style="float:right; color:gray;" class="is-size-6">dísel / {{petrol.diesel}}</span></h3>
+      <h1 class="subtitle is-5" style="padding-bottom:20px;" id="idh1">{{petrol.name}}<span id="idh1" style="float:right;" class="is-size-6">dísel / {{petrol.diesel}}</span></h1>
 
     </div>
   </div>
@@ -18,7 +18,6 @@ export default {
   data () {
     return {
       petrols: [],
-      money: 0
     }
   },
   mounted() {
@@ -36,10 +35,6 @@ export default {
       var sorted = this.petrols.sort(function(a, b) {
         return a.bensin95 - b.bensin95;
       });
-      
-      sorted = sorted.filter(function(petrol) {
-        return petrol.bensin95 > this.money;
-      }.bind(this));
 
       return sorted
     }
@@ -68,5 +63,13 @@ export default {
   .center {
     margin: auto;
     width: 800px;
+  }
+
+  #p_div:hover #idh1 {
+    color: #000000;
+  }
+
+  #idh1 {
+    colour: #E0E0E0;
   }
 </style>
