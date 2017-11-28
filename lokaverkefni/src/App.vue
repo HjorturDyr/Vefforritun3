@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    
+    <div>
+      <input type="text" id="taskDetails" placeholder="task details">
+      <button @click = "addTasks">submit</button>
+    </div>
   </div>
 </template>
 
@@ -11,7 +14,7 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      tasks: []
     }
   },
   mounted() {
@@ -22,11 +25,26 @@ export default {
          })
          .then(function(response) {
             console.log(response);
+            self.tasks = response.data.results;
          }).
          catch(function(error) {
             console.log(error);
          });
 
+  },
+  methods: {
+    addTasks() {
+      var taskId = document.querySelector("input[id=taskDetails]").value
+      axios.post('http://fjolbraut.org/api/tasks?api_token=llN7Oxz9WL1wSlDIfRYOpvttP2lt6Gf8Wng4sh5QdhJ3HfWzw5stRS6Y5gwC', {
+            title: taskId
+         })
+         .then(function(response) {
+            console.log(response);
+         })
+         .catch(function(error) {
+            console.log(error);
+         });
+    }
   }
 }
 </script>
