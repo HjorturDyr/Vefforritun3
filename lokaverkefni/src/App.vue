@@ -1,9 +1,21 @@
 <template>
   <div id="app">
+
     <div>
-      <input type="text" id="taskDetails" placeholder="task details">
+      <input type="text" id="taskDetails" placeholder="task details" v-on:keyup.enter="addTasks">
       <button @click = "addTasks">submit</button>
     </div>
+
+    <div>
+      <div v-for="task in tasks" v-if="task.completed===false" id="incomplete">
+        <h1 v-text="task.title"></h1>
+      </div>
+
+      <div v-for="task in tasks" v-if="task.completed===true" id="complete">
+        <h1 v-text="task.title"></h1>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -15,9 +27,10 @@ export default {
   data () {
     return {
       tasks: []
-    }
+    };
   },
   mounted() {
+    var self = this;
     axios.get('http://fjolbraut.org/api/tasks', {
             params: {
                 api_token: 'llN7Oxz9WL1wSlDIfRYOpvttP2lt6Gf8Wng4sh5QdhJ3HfWzw5stRS6Y5gwC'
@@ -25,7 +38,7 @@ export default {
          })
          .then(function(response) {
             console.log(response);
-            self.tasks = response.data.results;
+            self.tasks = response.data;
          }).
          catch(function(error) {
             console.log(error);
@@ -44,6 +57,7 @@ export default {
          .catch(function(error) {
             console.log(error);
          });
+         document.getElementById("taskDetails").value = "";
     }
   }
 }
@@ -75,5 +89,10 @@ li {
 
 a {
   color: #42b983;
+}
+
+#complete {
+  float: left;
+  padding-left:60px;
 }
 </style>
