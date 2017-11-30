@@ -7,13 +7,17 @@
     </div>
 
     <div>
-      <div v-for="task in tasks" v-if="task.completed===false" id="incomplete">
-        <h1 v-text="task.title"></h1>
-      </div>
+      <table class="table is-striped is-fullwidth">
+        <h1>incomplete</h1>
+        <ul v-for="task in tasks" v-if="task.completed===false" id="incomplete">
+          <input type="checkbox" id="myCheck"><li v-text="task.title"></li>
+        </ul>
 
-      <div v-for="task in tasks" v-if="task.completed===true" id="complete">
-        <h1 v-text="task.title"></h1>
-      </div>
+        <h1>Complete</h1>
+        <ul v-for="task in tasks" v-if="task.completed===true" id="complete">
+          <input type="checkbox" id="myCheck"><li v-text="task.title"></li>
+        </ul>
+      </table>
     </div>
 
   </div>
@@ -58,6 +62,7 @@ export default {
             console.log(error);
          });
          document.getElementById("taskDetails").value = "";
+         setTimeout(function () { window.location.reload(); }, 100)
     }
   }
 }
@@ -91,8 +96,26 @@ a {
   color: #42b983;
 }
 
-#complete {
-  float: left;
-  padding-left:60px;
+table {
+  border: 1px solid black;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: 20px;
+}
+
+#myCheck {
+    width: 1.3em;
+    height: 1.3em;
+    background-color: white;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid black;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+}
+
+#myCheck:checked {
+    background-color: black;
 }
 </style>
