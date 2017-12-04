@@ -8,15 +8,17 @@
 
     <div>
       <table class="table is-striped is-fullwidth">
+
         <h1>incomplete</h1>
-        <ul v-for="task in tasks" v-if="task.completed===false" id="incomplete">
-          <input type="checkbox" id="myCheck"><li v-text="task.title"></li>
+        <ul v-for="task in tasks" v-if="task.completed==false" id="incomplete" :key="task.id">
+          <input type="checkbox" id="myCheck" @click="checkTask(task)"><li v-text="task.title"></li>
         </ul>
 
         <h1>Complete</h1>
-        <ul v-for="task in tasks" v-if="task.completed===true" id="complete">
-          <input type="checkbox" id="myCheck"><li v-text="task.title"></li>
+        <ul v-for="task in tasks" v-if="task.completed==true" id="complete" :key="task.id">
+          <input type="checkbox" id="myCheck" @click="checkTask(task)" checked><li v-text="task.title"></li>
         </ul>
+        
       </table>
     </div>
 
@@ -63,6 +65,19 @@ export default {
          });
          document.getElementById("taskDetails").value = "";
          setTimeout(function () { window.location.reload(); }, 100)
+    },
+    checkTask(task) {
+      var id = task.id;
+
+      axios.post('http://fjolbraut.org/api/tasks/' + id + '/status?api_token=llN7Oxz9WL1wSlDIfRYOpvttP2lt6Gf8Wng4sh5QdhJ3HfWzw5stRS6Y5gwC')
+        .then(function(response) {
+            console.log(response);
+        })
+        .catch(function(error) {
+            console.log(error);
+         });
+
+        setTimeout(function () { window.location.reload(); }, 100)
     }
   }
 }
