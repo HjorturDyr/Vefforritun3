@@ -3,7 +3,7 @@
 
     <div>
       <input type="text" id="taskDetails" placeholder="task details" v-on:keyup.enter="addTasks">
-      <button @click = "addTasks">submit</button>
+      <button @click = "addTasks" id="addButton">submit</button>
     </div>
 
     <div>
@@ -18,7 +18,7 @@
         <ul v-for="task in tasks" v-if="task.completed==true" id="complete" :key="task.id">
           <input type="checkbox" id="myCheck" @click="checkTask(task)" checked><li v-text="task.title"></li>
         </ul>
-        
+
       </table>
     </div>
 
@@ -112,10 +112,11 @@ a {
 }
 
 table {
-  border: 1px solid black;
+  border: 2px solid gray;
   margin-left:auto;
   margin-right:auto;
   margin-top: 20px;
+  border-radius: 4px;
 }
 
 #myCheck {
@@ -124,13 +125,29 @@ table {
     background-color: white;
     border-radius: 50%;
     vertical-align: middle;
-    border: 1px solid black;
+    border: 1px solid gray;
     -webkit-appearance: none;
     outline: none;
     cursor: pointer;
 }
 
 #myCheck:checked {
-    background-color: black;
+    background-color: gray;
+}
+
+#taskDetails {
+  border: 2px solid gray;
+  border-radius: 5px;
+  text-align:center;
+}
+
+#addButton {
+  border: 2px solid gray;
+  border-radius: 6px; 
+  color: black;
+}
+
+#addButton:hover {
+  color: red;
 }
 </style>
